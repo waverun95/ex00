@@ -10,6 +10,13 @@
         ]]>
     </select>
 
+    <select id="getListWithPaging" parameterType="org.zerock.domain.Criteria" resultType="org.zerock.domain.BoardVO">
+
+        select * from tbl_board order by bno desc limit #{beginPage}, #{amount}
+
+    </select>
+
+
     <insert id="insert">
         insert into tbl_board(title,content,writer) values (#{title}, #{content}, #{writer})
     </insert>

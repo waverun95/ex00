@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class SampleController {
     @GetMapping("/exUpload")
     public void exUpload(){
-        log.info("/exUpload.....");
+        log.info("/exUpload../...");
     }
    @PostMapping("exUploadPost")
     public void ex(ArrayList<MultipartFile> files){

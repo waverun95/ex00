@@ -22,7 +22,7 @@ public class BoardServiceTests {
         vo.setContent("service content");
         vo.setWriter("service writer");
         boardService.register(vo);
-        log.info(vo);
+        log.info(vo+"11111111111111111111111111111111");
     }
     @Test
     public void read(){

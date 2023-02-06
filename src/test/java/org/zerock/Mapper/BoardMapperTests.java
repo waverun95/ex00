@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
 import org.zerock.mapper.BoardMapper;
 import org.zerock.mapper.TimeMapper;
 
@@ -19,10 +20,20 @@ import java.util.ArrayList;
 public class BoardMapperTests {
     @Setter(onMethod_ = {@Autowired})
     private BoardMapper boardMapper;
+
     @Test
     public void getList(){
 
         boardMapper.getList().forEach(board -> {
+            log.info(board);
+        });
+
+    }
+    @Test
+    public void getListWithPaging(){
+        Criteria cri = new Criteria(1,10);
+
+        boardMapper.getListWithPaging(cri).forEach(board -> {
             log.info(board);
         });
 

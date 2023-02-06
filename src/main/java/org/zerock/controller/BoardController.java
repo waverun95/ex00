@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.BoardVO;
+import org.zerock.domain.Criteria;
+import org.zerock.domain.PageDTO;
 import org.zerock.service.BoardService;
 
 @Controller
@@ -20,21 +22,32 @@ public class BoardController {
 
     private BoardService service;
 
+//    @GetMapping("/list")
+//    public void list(Model model){
+//        log.info("list");
+//        model.addAttribute("list",service.getList());
+//    }
     @GetMapping("/list")
-    public void list(Model model){
+    public void list(Model model, Criteria cri){
         log.info("list");
-        model.addAttribute("list",service.getList());
+        log.info(cri);
+        model.addAttribute("list",service.getList(cri));
+        model.addAttribute("pageMaker", new PageDTO(cri,123));
     }
     @PostMapping("/register")
     public String register(BoardVO board, RedirectAttributes rttr){
-        log.info("register:" + board);
         service.register(board);
+        log.info("register:" + board);
         rttr.addFlashAttribute("result",board.getBno());
         return "redirect:/board/list";
     }
-    @GetMapping("/get")
+    @GetMapping("/register")
+    public void register(){
+
+    }
+    @GetMapping({"/get", "/modify"})
     public void get(@RequestParam("bno") Long bno, Model model){
-        log.info("/get");
+        log.info("/get or modify");
         model.addAttribute("board",service.get(bno));
     }
 
