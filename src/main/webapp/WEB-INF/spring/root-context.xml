@@ -15,7 +15,8 @@
 		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
 		<property name="jdbcUrl" value="jdbc:log4jdbc:mysql://localhost:3306/spring"/>
 		<property name="username" value="root"/>
-		<property name="password" value="!gksrmf13"/>
+<!--		<property name="password" value="!gksrmf13"/>-->
+		<property name="password" value="qwe789"/>
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

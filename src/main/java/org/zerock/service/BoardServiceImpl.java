@@ -26,13 +26,13 @@ public class BoardServiceImpl implements BoardService{
     }
 
     @Override
-    public boolean update(BoardVO vo) {
+    public boolean modify(BoardVO vo) {
 
         return boardMapper.update(vo) == 1;
     }
 
     @Override
-    public boolean delete(Long bno) {
+    public boolean remove(Long bno) {
         return boardMapper.delete(bno) == 1;
     }
 

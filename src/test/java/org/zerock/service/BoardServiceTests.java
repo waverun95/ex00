@@ -30,7 +30,7 @@ public class BoardServiceTests {
     }
     @Test
     public void delete(){
-        log.info(boardService.delete(8L)+"asdsadsadsadsadas");
+        log.info(boardService.remove(8L)+"asdsadsadsadsadas");
     }
     @Test
     public void update(){
@@ -38,7 +38,7 @@ public class BoardServiceTests {
         vo.setTitle("updagte title");
         vo.setContent("update content");
         vo.setWriter("update writer");
-        boardService.update(vo);
+        boardService.modify(vo);
         log.info(vo);
     }
     @Test
