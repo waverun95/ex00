@@ -28,11 +28,14 @@
       <div class="panel-body">
 
         <form action="/board/modify" method="post">
+          <input type="hidden" name="pageNum" value="<c:out value='${cri.pageNum}'/>">
+          <input type="hidden" name="amount" value="<c:out value='${cri.amount}'/>">
+
           <div class="form-group">
             <label>Bno</label> <input class="form-control" name="bno" readonly="readonly" value="<c:out value='${board.bno}'/>">
           </div>
           <div class="form-group">
-            <label>Title</label> <input class="form-control" name="title" readonly="readonly" value="<c:out value='${board.title}'/>">
+            <label>Title</label> <input class="form-control" name="title" value="<c:out value='${board.title}'/>">
           </div>
           <div class="form-group">
             <label>Text area</label>
@@ -76,7 +79,11 @@
         formObj.attr("action","/board/remove");
       }else if (operation === 'list') {
        formObj.attr("action","/board/list").attr("method","get");
+       var pageNumTag = $("input[name='pageNum']").clone();
+       var amountTag = $("input[name='amount']").clone();
        formObj.empty();
+       formObj.append(pageNumTag);
+       formObj.append(amountTag);
       }
       formObj.submit();
     })

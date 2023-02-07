@@ -10,7 +10,7 @@
         ]]>
     </select>
 
-    <select id="getListWithPaging" parameterType="org.zerock.domain.Criteria" resultType="org.zerock.domain.BoardVO">
+    <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 
         select * from tbl_board order by bno desc limit #{beginPage}, #{amount}
 
@@ -44,4 +44,8 @@
                              updateDate = (CURRENT_DATE)
         where bno = #{bno}
     </update>
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from tbl_board where bno > 0
+    </select>
 </mapper>

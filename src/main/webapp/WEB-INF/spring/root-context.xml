@@ -17,6 +17,8 @@
 		<property name="username" value="root"/>
 <!--		<property name="password" value="!gksrmf13"/>-->
 		<property name="password" value="qwe789"/>
+
+
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
@@ -25,7 +27,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<context:component-scan base-package="org.zerock.domain"></context:component-scan>
+<!--	<context:component-scan base-package="org.zerock.domain"></context:component-scan>-->
 	<mybtis-spring:scan base-package="org.zerock.mapper"></mybtis-spring:scan>
 	<context:component-scan base-package="org.zerock.service"></context:component-scan>
 </beans>

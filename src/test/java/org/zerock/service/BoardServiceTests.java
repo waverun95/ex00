@@ -41,8 +41,8 @@ public class BoardServiceTests {
         boardService.modify(vo);
         log.info(vo);
     }
-    @Test
-    public void getList(){
-        boardService.getList().forEach(board -> log.info(board));
-    }
+//    @Test
+//    public void getList(){
+//        boardService.getList().forEach(board -> log.info(board));
+//    }
 }
