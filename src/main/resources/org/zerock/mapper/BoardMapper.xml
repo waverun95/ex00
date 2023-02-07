@@ -4,16 +4,47 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.zerock.mapper.BoardMapper">
 
+    <sql id="criteria">
+        <where>
+            <trim prefixOverrides="OR">
+                <foreach collection="typeArr" item="type">
+                    <trim prefix="OR">
+                        <choose>
+                            <when test="type == 'T'.toString()">
+                                title like concat('%',#{keyword},'%')
+                            </when>
+                            <when test="type == 'C'.toString()">
+                                content like concat('%',#{keyword},'%')
+                            </when>
+                            <when test="type == 'W'.toString()">
+                                writer like concat('%',#{keyword},'%')
+                            </when>
+                        </choose>
+                    </trim>
+                </foreach>
+            </trim>
+        </where>
+    </sql>
+
+
     <select id="getList" resultType="org.zerock.domain.BoardVO">
     <![CDATA[
             select * from tbl_board
         ]]>
     </select>
-
+<!--toString 붙이는 이유 한글자일경우 char형으로 인식하여 NumberFormatException이 발생
+-->
     <select id="getListWithPaging" resultType="org.zerock.domain.BoardVO">
 
-        select * from tbl_board order by bno desc limit #{beginPage}, #{amount}
+        select * from tbl_board
+                 <include refid="criteria"></include>
+                 order by bno desc limit #{beginPage}, #{amount}
 
+    </select>
+
+
+    <select id="getTotalCount" resultType="int">
+        select count(*) from tbl_board <include refid="criteria"></include>
     </select>
 
 
@@ -36,6 +67,7 @@
         delete from tbl_board where bno = #{bno}
     </delete>
 
+
     <update id="update" parameterType="org.zerock.domain.BoardVO">
         update tbl_board set
                              title = #{title},
@@ -44,8 +76,4 @@
                              updateDate = (CURRENT_DATE)
         where bno = #{bno}
     </update>
-
-    <select id="getTotalCount" resultType="int">
-        select count(*) from tbl_board where bno > 0
-    </select>
 </mapper>

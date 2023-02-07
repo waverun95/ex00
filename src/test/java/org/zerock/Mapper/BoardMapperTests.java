@@ -32,13 +32,26 @@ public class BoardMapperTests {
     @Test
     public void getListWithPaging(){
 
-//        Criteria cri = new Criteria(1,1);
-//        cri.setPageNum(3);
-//        cri.setAmount(10);
-//        log.info(cri+"111111111111111111111111111");
-//        boardMapper.getListWithPaging(cri).forEach(board -> {
-//            log.info(board);
-//        });
+        Criteria cri = new Criteria(1,10);
+        cri.setPageNum(1);
+        cri.setAmount(10);
+        log.info(cri+"111111111111111111111111111");
+        boardMapper.getListWithPaging(cri).forEach(board -> {
+            log.info(board);
+        });
+
+    }
+    @Test
+    public void testSearch(){
+
+        Criteria cri = new Criteria();
+        cri.setKeyword("1");
+        cri.setType("C");
+
+        log.info(cri+"111111111111111111111111111");
+        boardMapper.getListWithPaging(cri).forEach(board -> {
+            log.info(board);
+        });
 
     }
     @Test
