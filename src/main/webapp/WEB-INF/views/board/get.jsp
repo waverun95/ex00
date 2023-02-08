@@ -62,6 +62,7 @@
     </div>
 </div>
 <!-- /.row -->
+<script src="../../../resources/js/reply.js"></script>
 <script type="text/javascript">
     $(document).ready(function (){
         var openForm = $('#openForm');
@@ -76,6 +77,39 @@
             openForm.submit();
         });
     });
+</script>
+<script type="text/javascript">
+
+
+    $(document).ready(function (){
+
+        console.log("++++++=+++");
+        console.log("JS TEST");
+
+        var bnoValue = '<c:out value="${board.bno}"/>';
+
+        console.log(bnoValue);
+        // replyService.add(
+        //     {reply:"JS TESt", replyer:"tester", bno:bnoValue},
+        //     function (result){
+        //         alert("result"+result);
+        //     }
+        // );
+        replyService.remove(5,function (count){
+            console.log(count);
+            if (count === "success") {
+                alert("REMOVED");
+            }
+        },function (err) {
+            alert("error");
+            }
+        )
+        // replyService.getList({bno:bnoValue, page:1},function (list){
+        //     for (var i = 0, len = list.length||0; i < len; i++) {
+        //         console.log(list[i]);
+        //     }
+        // })
+    })
 </script>
 
 <%@include file="../includes/footer.jsp"%>
