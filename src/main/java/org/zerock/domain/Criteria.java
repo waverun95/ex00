@@ -29,6 +29,7 @@ public class Criteria {
     }
 
     public int getBeginPage() {
+        System.out.println("beginPage = " + ((this.pageNum-1)*this.amount));
         return this.beginPage = ((this.pageNum-1)*this.amount);
     }
 

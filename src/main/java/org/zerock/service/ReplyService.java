@@ -2,6 +2,7 @@ package org.zerock.service;
 
 import org.zerock.domain.BoardVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.ReplyPageDTO;
 import org.zerock.domain.ReplyVO;
 
 import java.util.List;
@@ -14,5 +15,7 @@ public interface ReplyService {
 //    public List<BoardVO> getList();
     public List<ReplyVO> getList(Criteria cri,Long bno);
 
-    public int getTotal(Criteria cri);
+    public ReplyPageDTO getListPage(Criteria cri,Long bno);
+    public int getTotal(Long bno);
+
 }

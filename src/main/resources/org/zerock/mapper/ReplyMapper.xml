@@ -25,9 +25,17 @@
         where rno =#{rno}
     </update>
 
+<!--    <select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">-->
+<!--        select * from tbl_reply-->
+<!--        where bno = #{bno}-->
+<!--        order by rno asc-->
+<!--    </select>-->
     <select id="getListWithPaging" resultType="org.zerock.domain.ReplyVO">
-        select * from tbl_reply
-        where bno = #{bno}
-        order by rno asc
+        select * from tbl_reply where bno = #{bno} order by bno desc, rno asc limit #{cri.beginPage},#{cri.amount}
     </select>
+
+    <select id="getCountByBno" resultType="int">
+        select count(*) from tbl_reply where bno = #{bno}
+    </select>
+
 </mapper>
