@@ -57,17 +57,11 @@
                         </div>
                         <div class="panel-body">
                             <ul class="chat">
-                                <li class="left clearfix" data-rno = '13'>
-                                    <div>
-                                    <div class="header">
-                                        <strong class="primary-font">user00</strong>
-                                        <small class="pull-right text-muted">2018-23-23</small>
-                                    </div>
-                                        <p>GOOD JO!</p>
-                                    </div>
-                                </li>
 
                             </ul>
+                        </div>
+                        <div class="panel-footer">
+
                         </div>
                         </div>
                     </div>
@@ -143,6 +137,8 @@
 
 
     $(document).ready(function (){
+        var pageNum = 1;
+        var replyPageFooter = $(".panel-footer");
 
         var bnoValue = '<c:out value="${board.bno}"/>';
         var replyUL = $(".chat");
@@ -172,8 +168,50 @@
                         str += "<p>"+list[i].reply+"</p></div></li>";
                     }
                     replyUL.html(str);
+                    showReplyPage(replyCnt);
                 })
             }
+
+        function showReplyPage(replyCnt){
+
+            var endNum = Math.ceil(pageNum / 10.0) * 10;
+            var startNum = endNum - 9;
+
+            var prev = startNum != 1;
+            var next = false;
+
+            if (endNum * 10 >= replyCnt){
+                endNum = Math.ceil(replyCnt/10.0);
+            }
+            if(endNum * 10 < replyCnt){
+                next = true;
+            }
+            var str = "<ul class='pagination pull-right'>";
+
+            if (prev){
+                str+="<li class='page-item'><a class='page-link' href='"+(startNum -1)+"'>Previous</a></li>"
+            }
+            for (var i = startNum; i <= endNum; i++){
+                var active = pageNum == i ? "active":"";
+
+                str+="<li class='page-item'><a class='page-link' href='"+i+"'>"+i+"</a></li>";
+            }
+            if(next){
+                str+="<li class='page-item'><a class='page-link' href='"+(endNum +1)+"'>Next</a></li>"
+            }
+            str += "</ul></div>";
+            console.log(str);
+            replyPageFooter.html(str);
+        }
+        replyPageFooter.on('click',"li a",function (e){
+            e.preventDefault();
+            console.log("page click");
+            var targetPageNum = $(this).attr("href");
+            console.log("targetPageNum : " + targetPageNum);
+            pageNum = targetPageNum;
+
+            showList(pageNum);
+        })
 
             var modal = $(".modal");
             var modalInputReply = modal.find("input[name='reply']");
@@ -203,7 +241,7 @@
                     modal.find("input").val("");
                     modal.modal("hide");
 
-                    showList(1);
+                    showList(-1);
                 })
             })
         $(".chat").on('click','li',function (e){
@@ -226,7 +264,7 @@
             replyService.update(reply, function (result){
                 alert(result);
                 modal.modal("hide");
-                showList(1);
+                showList(pageNum);
             });
         });
         modalRemoveBtn.on('click',function (e){
@@ -235,9 +273,12 @@
             replyService.remove(rno,function (result){
                 alert(result);
                 modal.modal("hide");
-                showList(1);
+                showList(pageNum);
             })
         })
+
+
+
         // replyService.add(
         //     {reply:"JS TESt", replyer:"tester", bno:bnoValue},
         //     function (result){
