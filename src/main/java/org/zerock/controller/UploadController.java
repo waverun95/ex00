@@ -64,7 +64,9 @@ public class UploadController {
         log.info("deleteFile: " + fileName);
         File file;
         try{
-            file = new File("C:\\upload\\"+ URLDecoder.decode(fileName,"UTF-8"));
+           // file = new File("C:\\upload\\"+ URLDecoder.decode(fileName,"UTF-8"));
+            file = new File("Users\\junyeong\\"+ URLDecoder.decode(fileName,"UTF-8"));
+
             file.delete();
 
             if (type.equals("image")){
@@ -87,7 +89,9 @@ public class UploadController {
     @ResponseBody
     public ResponseEntity<byte[]> getFile(String fileName) {
         log.info("fileName: " + fileName);
-        File file = new File("C:\\upload\\"+fileName);
+
+//        File file = new File("C:\\upload\\"+fileName);
+        File file = new File("Users\\junyeong\\"+fileName);
         log.info(file);
         ResponseEntity<byte[]> result = null;
         try{
@@ -104,7 +108,8 @@ public class UploadController {
     @ResponseBody
     public ResponseEntity<Resource> downloadFile(@RequestHeader("User-Agent") String userAgent, String fileName){
         log.info("download file: " + fileName);
-        Resource resource = new FileSystemResource("C:\\upload\\"+fileName);
+//        Resource resource = new FileSystemResource("C:\\upload\\"+fileName);
+        Resource resource = new FileSystemResource("Users\\junyeong\\"+fileName);
 
         if (resource.exists() == false) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -138,7 +143,9 @@ public class UploadController {
     public ResponseEntity<List<AttachFileDTO>> uploadAjaxAction(MultipartFile[] uploadFile){
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = "C:\\upload";
+        //String uploadFolder = "C:\\upload";
+        String uploadFolder = "Users\\junyeong";
+
         String uploadFolderPath = getFolder();
 
         //        make folder------------------

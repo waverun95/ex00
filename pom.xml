@@ -7,6 +7,12 @@
 	<name>ex00</name>
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
+<!--	<properties>-->
+<!--		<java-version>11</java-version>-->
+<!--		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>-->
+<!--		<org.aspectj-version>1.9.6</org.aspectj-version>-->
+<!--		<org.slf4j-version>1.7.25</org.slf4j-version>-->
+<!--	</properties>-->
 	<properties>
 		<java-version>11</java-version>
 		<org.springframework-version>5.0.7.RELEASE</org.springframework-version>
@@ -32,7 +38,35 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-				
+<!--		스프링 시쿠ㅠ리티-->
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-web -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-web</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-config -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-config</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-taglibs -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-taglibs</artifactId>
+			<version>5.0.6.RELEASE</version>
+		</dependency>
+
+
+
+
 		<!-- AspectJ -->
 		<dependency>
 			<groupId>org.aspectj</groupId>

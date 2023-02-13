@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-@RestController
+@Controller
 @RequestMapping("/sample")
 @Log4j
 public class SampleController {
@@ -69,5 +69,17 @@ public class SampleController {
     public Ticket convert(@RequestBody Ticket ticket){
         log.info("convert......ticket"+ ticket);
         return ticket;
+    }
+    @GetMapping("/all")
+    public void doAll() {
+        log.info("do all can access everybody");
+    }
+    @GetMapping("/member")
+    public void doMember(){
+        log.info("logined member");
+    }
+    @GetMapping("/admin")
+    public void doAdmin(){
+        log.info("admin only");
     }
 }
