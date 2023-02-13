@@ -76,4 +76,8 @@
                              updateDate = (CURRENT_DATE)
         where bno = #{bno}
     </update>
+
+    <update id="updateReplyCnt" >
+        update tbl_board set replyCnt = replyCnt + #{amount} where bno = #{bno}
+    </update>
 </mapper>
