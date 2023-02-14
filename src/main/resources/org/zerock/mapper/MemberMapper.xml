@@ -8,6 +8,7 @@
         <id property="userid" column="userid"></id>
         <result property="userid" column="userid"/>
         <result property="userpw" column="userpw"/>
+        <result property="enabled" column="enabled"/>
         <result property="userName" column="username"/>
         <result property="regDate" column="regdate"/>
         <result property="updateDate" column="updatedate"/>

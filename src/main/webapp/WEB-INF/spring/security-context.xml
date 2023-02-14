@@ -10,6 +10,7 @@
     <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
 <!--    <bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean>-->
     <bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+    <bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
     <!-- 시큐리티의 시작지점 지정 -->
     <security:http>
     <security:intercept-url pattern="/sample/all" access="permitAll"/>
@@ -27,11 +28,12 @@
 
     <!-- 스프링 시큐리티가 동작하려면 AuthenticationManager 라는 인터페이스가 필요함 -->
     <security:authentication-manager>
-    <security:authentication-provider>
+    <security:authentication-provider user-service-ref="customUserDetailsService">
+
 <!--        <security:jdbc-user-service data-source-ref="dataSource"/>-->
-        <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="select userid, userpw, enabled from tbl_member where userid = ?"
-        authorities-by-username-query="SELECT userid, auth from tbl_member_auth where userid = ?"
-        ></security:jdbc-user-service>
+<!--        <security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="select userid, userpw, enabled from tbl_member where userid = ?"-->
+<!--        authorities-by-username-query="SELECT userid, auth from tbl_member_auth where userid = ?"-->
+<!--        ></security:jdbc-user-service>-->
         <security:password-encoder ref="bcryptPasswordEncoder"/>
 <!--        <security:user-service>-->
 <!--            <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>-->
