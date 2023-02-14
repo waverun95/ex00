@@ -6,7 +6,9 @@
 		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
 		http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd" >
-
+    <bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
+    <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+    <bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean>
     <!-- 시큐리티의 시작지점 지정 -->
     <security:http>
     <security:intercept-url pattern="/sample/all" access="permitAll"/>
@@ -14,18 +16,23 @@
         <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
 
         <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
-        <security:form-login />
-        <security:access-denied-handler error-page="/accessError"></security:access-denied-handler>
-
+<!--        <security:form-login />-->
+<!--        <security:form-login login-page="/customLogin"/>-->
+<!--        <security:access-denied-handler error-page="/accessError"></security:access-denied-handler>-->
+        <security:access-denied-handler ref="customAccessDenied"/>
+        <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+        <security:logout logout-url="/customLogout" invalidate-session="true"/>
     </security:http>
 
     <!-- 스프링 시큐리티가 동작하려면 AuthenticationManager 라는 인터페이스가 필요함 -->
     <security:authentication-manager>
     <security:authentication-provider>
-        <security:user-service>
-            <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-            <security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>
-        </security:user-service>
+        <security:jdbc-user-service data-source-ref="dataSource"/>
+        <security:password-encoder ref="customPasswordEncoder"/>
+<!--        <security:user-service>-->
+<!--            <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>-->
+<!--            <security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER,ROLE_ADMIN"/>-->
+<!--        </security:user-service>-->
     </security:authentication-provider>
     </security:authentication-manager>
 </beans>

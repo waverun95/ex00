@@ -163,7 +163,7 @@
       $(uploadResultArr).each(function (i, obj){
         console.log(obj.image);
         if (obj.image) {
-          var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
+          //var fileCallPath = encodeURIComponent(obj.uploadPath+"/s_"+obj.uuid+"_"+obj.fileName);
 
           var fileCallPath =  encodeURIComponent( obj.uploadPath+ "/s_"+obj.uuid +"_"+obj.fileName);
           str += "<li data-path='"+obj.uploadPath+"'";
