@@ -62,7 +62,7 @@ var replyService = (function (){
     }
     function remove(rno, replyer, callback, error) {
         $.ajax({
-            type : 'delete',
+            type : 'DELETE',
             url : '/replies/' + rno,
             data: JSON.stringify({rno:rno, replyer:replyer})
             ,

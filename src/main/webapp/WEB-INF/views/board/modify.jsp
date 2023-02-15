@@ -79,6 +79,7 @@
           <input type="hidden" name="amount" value="<c:out value='${cri.amount}'/>">
           <input type="hidden" name="type" value="<c:out value='${cri.type}'/>">
           <input type="hidden" name="keyword" value="<c:out value='${cri.keyword}'/>">
+          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 
           <div class="form-group">
             <label>Bno</label> <input class="form-control" name="bno" readonly="readonly" value="<c:out value='${board.bno}'/>">
@@ -101,7 +102,7 @@
             <label>UpdateDate</label>
             <input class="form-control" name="updateDate" value='<fmt:formatDate pattern="yyyy/MM/dd" value="${board.updateDate}"/>' readonly="readonly">
           </div>
-          <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+
           <sec:authentication property="principal" var="pinfo"></sec:authentication>
           <sec:authorize access="isAuthenticated()">
             <c:if test="${pinfo.username eq board.writer}">

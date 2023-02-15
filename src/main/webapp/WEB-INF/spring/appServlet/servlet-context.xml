@@ -26,8 +26,8 @@
 		<beans:property name="maxUploadSize" value="200000000" />
 		<beans:property name="maxInMemorySize" value="200000000" />
 		<beans:property name="maxUploadSizePerFile" value="200000000" />
-<!--		<beans:property name="uploadTempDir" value="file:/Users/junyeong/upload/" />-->
-		<beans:property name="uploadTempDir" value="file:/C:/upload/tmp" />
+		<beans:property name="uploadTempDir" value="file:/Users/junyeong/upload/" />
+<!--		<beans:property name="uploadTempDir" value="file:/C:/upload/tmp" />-->
 	</beans:bean>
 
 	<context:component-scan base-package="org.zerock.exception"/>
