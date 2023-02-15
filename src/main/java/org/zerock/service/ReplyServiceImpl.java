@@ -39,14 +39,25 @@ public class ReplyServiceImpl implements ReplyService{
         return replyMapper.update(vo);
     }
 
+//    @Override
+//    public int remove(Long rno) {
+//        log.info("remove"+ rno);
+//        ReplyVO vo = replyMapper.read(rno);
+//        boardMapper.updateReplyCnt(vo.getBno(),-1);
+//        return replyMapper.delete(rno);
+//    }
+    @Transactional
     @Override
     public int remove(Long rno) {
-        log.info("remove"+ rno);
-        ReplyVO vo = replyMapper.read(rno);
-        boardMapper.updateReplyCnt(vo.getBno(),-1);
-        return replyMapper.delete(rno);
-    }
 
+        log.info("remove...." + rno);
+
+        ReplyVO vo = replyMapper.read(rno);
+
+        boardMapper.updateReplyCnt(vo.getBno(), -1);
+        return replyMapper.delete(rno);
+
+    }
     @Override
     public List<ReplyVO> getList(Criteria cri, Long bno) {
         return replyMapper.getListWithPaging(cri,bno);

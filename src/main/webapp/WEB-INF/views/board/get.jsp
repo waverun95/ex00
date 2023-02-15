@@ -15,6 +15,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@include file="../includes/header.jsp"%>
 
 <dic class="bigPictureWrapper">
@@ -95,7 +96,12 @@
                 <div class="form-group">
                     <label>Writer</label> <input class="form-control" name="writer" value='<c:out value="${board.writer}"/>' readonly="readonly">
                 </div>
+                <sec:authentication property="principal" var="pinfo"/>
+                <sec:authorize access="isAuthenticated()">
+                    <c:if test="${pinfo.username eq board.writer}">
                 <button data-oper='modify' class="btn btn-default">수정</button>
+                    </c:if>
+                </sec:authorize>
                 <button data-oper='list' class="btn btn-info">목록</button>
 <%--                파일창--%>
                 <div class="row">
@@ -124,7 +130,9 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <i class="fa fa-comments fa-fw"></i> REPLY
+                            <sec:authorize access="isAuthenticated()">
                             <button id="addReplyBtn" class="btn btn-primary btn-xs pull-right">New Reply</button>
+                            </sec:authorize>
                         </div>
                         <div class="panel-body">
                             <ul class="chat">
@@ -155,7 +163,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Replyer</label>
-                                    <input class="form-control" name='replyer' value='replyer'>
+                                    <input class="form-control" name='replyer' value='replyer' readonly="readonly">
                                 </div>
                                 <div class="form-group">
                                     <label>Reply Date</label>
@@ -293,9 +301,22 @@
             var modalRemoveBtn = $("#modalRemoveBtn");
             var modalRegisterBtn = $("#modalRegisterBtn");
 
+            var replyer = null;
+            <sec:authorize access="isAuthenticated()">
+            replyer = '<sec:authentication property="principal.username"/>';
+
+        </sec:authorize>
+
+            var csrfHeaderName = "${_csrf.headerName}";
+            var csrfTokenValue = "${_csrf.token}";
+            $(document).ajaxSend(function (e, xhr, options) {
+                xhr.setRequestHeader(csrfHeaderName, csrfTokenValue);
+            });
+
             $("#addReplyBtn").on('click',function (e){
 
                 modal.find("input").val("");
+                modal.find("input[name='replyer']").val(replyer);
                 modalInputReplyDate.closest("div").hide();
                 modal.find("button[id != 'modalCloseBtn']").hide();
                 modalRegisterBtn.show();
@@ -341,6 +362,21 @@
         modalRemoveBtn.on('click',function (e){
             console.log("ddddd");
             var rno = modal.data("rno");
+            console.log("rno" + rno);
+            console.log("replyer" + replyer);
+
+            if (!replyer){
+                alert("로그인후 삭제가 가능합니다.");
+                modal.modal("hide");
+                return;
+            }
+            var originalReplyer = modalInputReplyer.val();
+
+            if (replyer != originalReplyer){
+                alert("자신이 작성한 댓글만 삭제 가능");
+                modal.modal("hide");
+                return;
+            }
             replyService.remove(rno,function (result){
                 alert(result);
                 modal.modal("hide");
