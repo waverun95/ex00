@@ -30,7 +30,36 @@ public class FileCheckTask {
         String str = sdf.format(cal.getTime());
         return str.replace("-", File.separator);
     }
-
+//window
+//    @Scheduled(cron = "0 0 2 * * *")
+//    public void checkFiles()throws Exception{
+//        log.warn("File Check Task run........");
+//        log.warn(new Date());
+//        //file list in data base
+//        List<BoardAttachVO> fileList = attachMapper.getOldFiles();
+//        //ready for check file in directory with database file list
+//        List<Path> fileListPaths = fileList.stream()
+//                .map(vo -> Paths.get("C:\\upload", vo.getUploadPath(),vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
+//        //image file has thumbnail file
+//        fileList.stream().filter(vo -> vo.isFileType() == true).map(vo -> Paths.get("C:\\upload", vo.getUploadPath(),"s_"+vo.getUuid()+"_"+vo.getFileName()))
+//                .forEach(p-> fileListPaths.add(p));
+//
+//        log.warn("========================");
+//
+//        fileListPaths.forEach(p -> log.warn(p));
+//
+//        // files in yesterday directory
+//        File targetDir = Paths.get("C:\\upload", getFolderYesterDay()).toFile();
+//
+//        File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);
+//
+//        log.warn("------------------------------");
+//        for (File file : removeFiles) {
+//            log.warn(file.getAbsolutePath());
+//            file.delete();
+//        }
+//    }
+//    mac
     @Scheduled(cron = "0 0 2 * * *")
     public void checkFiles()throws Exception{
         log.warn("File Check Task run........");
@@ -39,9 +68,9 @@ public class FileCheckTask {
         List<BoardAttachVO> fileList = attachMapper.getOldFiles();
         //ready for check file in directory with database file list
         List<Path> fileListPaths = fileList.stream()
-                .map(vo -> Paths.get("C:\\upload", vo.getUploadPath(),vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
+                .map(vo -> Paths.get("/Users/junyeong/upload", vo.getUploadPath(),vo.getUuid() + "_" + vo.getFileName())).collect(Collectors.toList());
         //image file has thumbnail file
-        fileList.stream().filter(vo -> vo.isFileType() == true).map(vo -> Paths.get("C:\\upload", vo.getUploadPath(),"s_"+vo.getUuid()+"_"+vo.getFileName()))
+        fileList.stream().filter(vo -> vo.isFileType() == true).map(vo -> Paths.get("/Users/junyeong/upload", vo.getUploadPath(),"s_"+vo.getUuid()+"_"+vo.getFileName()))
                 .forEach(p-> fileListPaths.add(p));
 
         log.warn("========================");
@@ -49,7 +78,7 @@ public class FileCheckTask {
         fileListPaths.forEach(p -> log.warn(p));
 
         // files in yesterday directory
-        File targetDir = Paths.get("C:\\upload", getFolderYesterDay()).toFile();
+        File targetDir = Paths.get("/Users/junyeong/upload", getFolderYesterDay()).toFile();
 
         File[] removeFiles = targetDir.listFiles(file -> fileListPaths.contains(file.toPath()) == false);
 
