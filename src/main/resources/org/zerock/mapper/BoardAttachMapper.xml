@@ -20,4 +20,7 @@
     <delete id="deleteAll">
         delete from tbl_attach where bno = #{bno}
     </delete>
+    <select id="getOldFiles" resultType="org.zerock.domain.BoardAttachVO">
+        select * from spring.tbl_attach where uploadPath = DATE_FORMAT(date_sub(now(),INTERVAL 1 DAY), '%Y\%m\%d')
+    </select>
 </mapper>

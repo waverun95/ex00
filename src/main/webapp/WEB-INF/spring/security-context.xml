@@ -39,10 +39,10 @@
 
         <security:form-login login-page="/customLogin" />
 
-         <security:csrf disabled="true"/>
+<!--         <security:csrf disabled="true"/>-->
 
-        <security:logout logout-url="/customLogout"
-                         invalidate-session="true" />
+<!--        <security:logout logout-url="/customLogout"-->
+<!--                         invalidate-session="true" />-->
 
         <security:remember-me
                 data-source-ref="dataSource" token-validity-seconds="604800" />

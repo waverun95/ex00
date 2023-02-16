@@ -88,7 +88,7 @@ public class BoardController {
     }
     @PreAuthorize("principal.username == #writer")
     @PostMapping("/remove")
-    public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri){
+    public String remove(@RequestParam("bno") Long bno, RedirectAttributes rttr, @ModelAttribute("cri") Criteria cri, String writer){
         log.info("remove"+bno);
 
         List<BoardAttachVO> attachList = service.getAttachList(bno);
@@ -105,6 +105,8 @@ public class BoardController {
 //        rttr.addAttribute("keyword",cri.getKeyword());
         return "redirect:/board/list" + cri.getListLink();
     }
+
+
 
     @GetMapping(value = "/getAttachList", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
